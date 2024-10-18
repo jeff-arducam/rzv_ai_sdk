@@ -59,6 +59,8 @@
 #include <time.h>
 #include <fcntl.h>    /* For O_RDWR */
 #include <sys/ioctl.h>
+#include <csignal>
+
 /*DRP-AI memory area offset for model objects*/
 /*Offset value depends on the size of memory area used by DRP-AI Pre-processing Runtime Object files*/
 #define DRPAI_MEM_OFFSET        (0x38E0000)
@@ -112,6 +114,13 @@ std::map<std::string, int> input_source_map = {
     {"CAMERA", 2},
     {"IMAGE", 3}
 };
+
+void signalHandler(int signum) {
+    std::cout << "\nInterrupt signal (" << signum << ") received.\n";
+    cap.release(); // 释放视频捕获对象
+    cv::destroyAllWindows(); // 销毁所有窗口
+    exit(signum); // 退出程序
+}
 
 /*****************************************
 * Function Name : get_drpai_start_addr
@@ -453,9 +462,9 @@ void mipi_cam_init(void)
     const char* commands[4] =
     {
         "media-ctl -d /dev/media0 -r",
-        "media-ctl -d /dev/media0 -V \"\'ov5645 0-003c\':0 [fmt:UYVY8_2X8/640x480 field:none]\"",
+        "media-ctl -d /dev/media0 -V \"\'arducam-pivariety 0-000c\':0 [fmt:UYVY8_2X8/1920x1080 field:none]\"",
         "media-ctl -d /dev/media0 -l \"\'rzg2l_csi2 10830400.csi2\':1 -> \'CRU output\':0 [1]\"",
-        "media-ctl -d /dev/media0 -V \"\'rzg2l_csi2 10830400.csi2\':1 [fmt:UYVY8_2X8/640x480 field:none]\""
+        "media-ctl -d /dev/media0 -V \"\'rzg2l_csi2 10830400.csi2\':1 [fmt:UYVY8_2X8/1920x1080 field:none]\""
     };
 
     /* media-ctl command */
@@ -517,7 +526,9 @@ void capture_frame(std::string cap_pipeline)
             std::cout << "[INFO] Video ended or corrupted frame !\n";
             return;
         }
+        cv::cvtColor(frame, frame, cv::COLOR_RGB2BGR);
         cv::resize(frame, frame, cv::Size(FRAME_IN_W,FRAME_IN_H), cv::INTER_LINEAR);
+        
         cout<< boxes[0] <<endl;
         frames = frame(boxes[0]);
         out = run_inference(frames);
@@ -538,6 +549,7 @@ void capture_frame(std::string cap_pipeline)
 }
 int main(int argc, char **argv)
 {
+    signal(SIGINT, signalHandler);
     /* Model Binary */
     std::string model_dir = "plant_dis_onnx";
     /*  class list file */

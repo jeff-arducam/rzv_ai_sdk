@@ -452,7 +452,7 @@ void Image::convert_format()
 /*****************************************
  * Function Name : convert_size
  * Description   : Scale up the input data (640x480) to the intermediate data (960x720) using OpenCV.
- *                 To convert to the final output size (1280x720), fill the right margin of the
+ *                 To convert to the final output size (1920x1080), fill the right margin of the
  *                 intermediate data (960x720) with black.
  * Arguments     : -
  * Return value  : -
@@ -465,7 +465,7 @@ void Image::convert_size()
     /* Resize: 640x480 to 960x720 */
     cv::resize(org_image, resize_image, cv::Size(), RESIZE_SCALE, RESIZE_SCALE);
 
-    /* Padding: 960x720 to 1280x720 */
+    /* Padding: 960x720 to 1920x1080 */
     uint8_t *dst = img_buffer[buf_id];
     uint8_t *src = resize_image.data;
     int32_t i;

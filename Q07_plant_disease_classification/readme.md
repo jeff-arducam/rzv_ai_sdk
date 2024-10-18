@@ -25,7 +25,7 @@ It has 3 modes of running.
 - USB Keyboard
 - USB Mouse
 - USB Hub
-- HDMI monitor with resolution 1280x720 
+- HDMI monitor with resolution 1920x1080 
 - micro HDMI to HDMI cable 
 - SD Card (for file system)
 

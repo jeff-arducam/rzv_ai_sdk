@@ -200,7 +200,7 @@ E.g., for RZ/V2L, use the `rzv2l_ai_sdk_container` as the name of container crea
 
     ```sh
     mkdir -p include
-    cp -r boost_1_81_0/boost include/
+    cp -r boost_1_81_0 include/boost
     ```
 8. Remove boost files [Optional]
 

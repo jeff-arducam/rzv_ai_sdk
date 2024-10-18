@@ -209,6 +209,7 @@ void camera_thread(void)
         if (frame_count % FRAME_INTERVAL != 0)
         {
             cv::resize(frame, frame, cv::Size(640, 480), cv::INTER_LINEAR);
+            cv::cvtColor(frame, frame, cv::COLOR_RGB2BGR);
             if (result != none)
             {
                 Color = (result == violence) ? RED : GREEN;
@@ -427,6 +428,7 @@ void process_frames(void)
             std::cout << "[ERROR] Unable to read frame" << std::endl;
             break;
         }
+        cv::cvtColor(frame, frame, cv::COLOR_RGB2BGR);
         /* run inference*/
         cv::Mat feature_vector = run_inference(frame);
         features.push_back(feature_vector);
@@ -487,9 +489,9 @@ void mipi_cam_init(void)
     const char* commands[4] =
     {
         "media-ctl -d /dev/media0 -r",
-        "media-ctl -d /dev/media0 -V \"\'ov5645 0-003c\':0 [fmt:UYVY8_2X8/640x480 field:none]\"",
+        "media-ctl -d /dev/media0 -V \"\'arducam-pivariety 0-000c\':0 [fmt:UYVY8_2X8/1920x1080 field:none]\"",
         "media-ctl -d /dev/media0 -l \"\'rzg2l_csi2 10830400.csi2\':1 -> \'CRU output\':0 [1]\"",
-        "media-ctl -d /dev/media0 -V \"\'rzg2l_csi2 10830400.csi2\':1 [fmt:UYVY8_2X8/640x480 field:none]\""
+        "media-ctl -d /dev/media0 -V \"\'rzg2l_csi2 10830400.csi2\':1 [fmt:UYVY8_2X8/1920x1080 field:none]\""
     };
 
     /* media-ctl command */

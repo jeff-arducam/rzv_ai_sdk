@@ -268,7 +268,7 @@ void Image::draw_rect(int32_t x, int32_t y, int32_t w, int32_t h, const char * s
 /*****************************************
 * Function Name : convert_size
 * Description   : Scale up the input data to the intermediate data using OpenCV.
-*                 To convert to the final output size (1280x720), fill the right margin of the
+*                 To convert to the final output size (1920x1080), fill the right margin of the
 *                 intermediate data (960x720) with black.
 * Arguments     : -
 * Return value  : -

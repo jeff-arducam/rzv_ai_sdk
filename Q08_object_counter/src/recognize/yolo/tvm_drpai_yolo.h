@@ -43,8 +43,8 @@ class TVM_YOLO_DRPAI : public IRecognizeModel
 private:
     constexpr static string_view TVM_MODEL_DIR_YOLOV3="";
     constexpr static string_view TVM_MODEL_DIR_TINYYOLOV3="";
-    constexpr static int32_t TVM_DRPAI_IN_WIDTH = (640);
-    constexpr static int32_t TVM_DRPAI_IN_HEIGHT = (480);
+    constexpr static int32_t TVM_DRPAI_IN_WIDTH = (1920);
+    constexpr static int32_t TVM_DRPAI_IN_HEIGHT = (1080);
 
     /*YOLO Common*/
     constexpr static string_view MODEL_NAME = "DRP-AI TVM YOLO (DRP-AI)";

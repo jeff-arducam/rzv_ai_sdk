@@ -636,7 +636,7 @@ void RecognizeBase::inference_preprocess(void *arg, uint8_t model_id, uint32_t w
     Measuretime m("Pre process time");
     cv::Mat yuyv_image(height, width, CV_8UC2, (void *)me->input_data);
     /*convert yuv format to bgr*/
-    cv::cvtColor(yuyv_image, g_bgra_image, cv::COLOR_YUV2BGR_YUYV);
+    cv::cvtColor(yuyv_image, g_bgra_image, cv::COLOR_YUV2RGB_YUYV);
     _model->inf_pre_process(me->input_data, width, height, me->capture_address, out_ptr, out_size);
 }
 

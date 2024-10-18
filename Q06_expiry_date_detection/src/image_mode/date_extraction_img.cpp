@@ -568,6 +568,7 @@ int date_extraction_on_frame()
     /* Inference start time */
     auto t1 = std::chrono::high_resolution_clock::now();
 
+    cv::cvtColor(frame, frame, cv::COLOR_RGB2BGR);
     ret = drpai_inference(frame);
 
     if (ret != 0)
@@ -740,6 +741,7 @@ int main(int argc, char *argv[])
     disp_frame = create_output_frame();
     cout<<"disp drawn\n" ;
     /* Print result on the frame */
+    cv::cvtColor(disp_frame, disp_frame, cv::COLOR_RGB2BGR);
     disp_frame = print_result(disp_frame);
     cout<<"res drawn\n" ;
     /* Display the resulting image */

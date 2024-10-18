@@ -388,7 +388,8 @@ void capture_frame(std::string cap_pipeline,std::string input_source)
         }
         else
         {   
-            /* run inference with respect to captured frame */         
+            /* run inference with respect to captured frame */
+            cv::cvtColor(g_frame, g_frame, cv::COLOR_RGB2BGR);
             g_fn_frame = run_inference(g_frame);
             /* check for image mode*/
             if(g_image_mode == true)
@@ -417,9 +418,9 @@ void mipi_cam_init(void)
     const char *commands[4] =
     {
         "media-ctl -d /dev/media0 -r",
-        "media-ctl -d /dev/media0 -V \"\'ov5645 0-003c\':0 [fmt:UYVY8_2X8/640x480 field:none]\"",
+        "media-ctl -d /dev/media0 -V \"\'arducam-pivariety 0-000c\':0 [fmt:UYVY8_2X8/1920x1080 field:none]\"",
         "media-ctl -d /dev/media0 -l \"\'rzg2l_csi2 10830400.csi2\':1 -> \'CRU output\':0 [1]\"",
-        "media-ctl -d /dev/media0 -V \"\'rzg2l_csi2 10830400.csi2\':1 [fmt:UYVY8_2X8/640x480 field:none]\""
+        "media-ctl -d /dev/media0 -V \"\'rzg2l_csi2 10830400.csi2\':1 [fmt:UYVY8_2X8/1920x1080 field:none]\""
     };
 
     /* media-ctl command */
